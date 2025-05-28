@@ -1,0 +1,7 @@
+*
+!.gitignore
+!esup-nfc-agent.py
+!config.ini
+!LICENCE
+!README.md
+
