@@ -2,7 +2,7 @@
 
 **esup-nfc-tag-py** is a lightweight Python-based background application with a system tray icon that listens for NFC card events and triggers an authentication request (APDU exchange) to a remote server (such as [esup-otp-api](https://github.com/EsupPortail/esup-otp-api)), typically used in conjunction with a CAS-based MFA system.
 
-**esup-nfc-tag-py** acts as a client to [esup-nfc-tag-server](https://github.com/EsupPortail/esup-nfc-tag-server)), which serves as a relay to both construct the required DESFire APDUs and communicate with esup-otp-api in order to complete CAS authentication once the DESFire authentication has been successfully validated.
+**esup-nfc-tag-py** acts as a client to [esup-nfc-tag-server](https://github.com/EsupPortail/esup-nfc-tag-server), which serves as a relay to both construct the required DESFire APDUs and communicate with esup-otp-api in order to complete CAS authentication once the DESFire authentication has been successfully validated.
 
 This project is designed to be deployed on user workstations (especially Windows) to support secure contactless authentication via DESFire NFC cards.
 
@@ -48,24 +48,24 @@ Requires PowerShell and Python installed.
 Open a PowerShell terminal in the project directory and run:
 
 1. Install dependencies
-``powershell
+```powershell
 .\setup.ps1
 ```
 
 2. Run the app (with system tray icon)
-``powershell
+```powershell
 .\setup.ps1 run
 ```
 
 3. Generate a standalone .exe for deployment
-``powershell
+```powershell
 .\setup.ps1 build
 ```
 The generated esup-nfc-agent.exe will be located in the dist/ folder.
 
 ## Linux/macOS Usage (for development)
 Use bash and make sure python3, pip, and NFC libraries are installed.
-``powershell
+```powershell
 ./setup.sh          # Install dependencies
 ./setup.sh run      # Run the agent
 ./setup.sh build    # (Optional) Build Linux executable
