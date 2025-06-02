@@ -4,5 +4,7 @@
 !config.ini
 !LICENSE
 !README.md
-
+!requirements.txt
+!setup.sh
+!setup.ps1
 
