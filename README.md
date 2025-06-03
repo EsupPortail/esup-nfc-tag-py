@@ -44,6 +44,8 @@ numero_id = numero-hexa-de-esup-nfc-tag-pour-esup-otp
 
 ## Windows Usage
 
+### Generation of executable
+
 Requires PowerShell and Python. Visual Studio is needed for some native dependencies.
 
 1. If Python is not already installed:
@@ -90,9 +92,18 @@ After completion, the .exe will be located in the dist/ folder and can be deploy
 
 Make sure to configure config.ini before generating the .exe.
 
+### Standalone Deployment
+
+Once the `.exe` is successfully generated with the `.\setup.ps1 build` command, it becomes a **fully standalone executable**. This means:
+
+- It **embeds the Python interpreter and all dependencies**,
+- It can be **copied and executed on any Windows machine** without needing Python or any extra libraries installed,
+
+This makes it easy to **distribute the agent across multiple Windows clients** using a software deployment tool (e.g. WAPT, SCCM, or others).
+
 ## Linux/macOS Usage (for development)
 Use bash and make sure python3, pip, and NFC libraries are installed.
-```powershell
+```bash
 ./setup.sh          # Install dependencies
 ./setup.sh run      # Run the agent
 ./setup.sh build    # (Optional) Build Linux executable
