@@ -3,7 +3,6 @@ charset-normalizer==3.4.2
 idna==3.10
 pillow==11.2.1
 pycairo==1.28.0
-PyGObject==3.52.3
 pyscard==2.2.2
 pystray==0.19.5
 python-xlib==0.33

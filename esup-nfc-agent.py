@@ -119,7 +119,7 @@ class NfcAgent:
                 logger.info(f"Erreur : {e}")
 
 def run_systray(agent: NfcAgent):
-    icon_path = os.path.join(os.path.dirname(__file__), 'icon.png')
+    icon_path = os.path.join(os.path.dirname(__file__), 'icon.ico')
     icon_image = Image.open(icon_path)
 
     def on_quit(icon, item):

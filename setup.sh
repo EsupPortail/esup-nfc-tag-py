@@ -2,7 +2,7 @@
 
 APP_NAME="esup-nfc-agent"
 MAIN_SCRIPT="esup-nfc-agent.py"
-ICON_FILE="icon.png"
+ICON_FILE="icon.ico"
 CONFIG_FILE="config.ini"
 VENV_DIR="venv"
 

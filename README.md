@@ -43,25 +43,52 @@ numero_id = numero-hexa-de-esup-nfc-tag-pour-esup-otp
 ```
 
 ## Windows Usage
-Requires PowerShell and Python installed.
 
-Open a PowerShell terminal in the project directory and run:
+Requires PowerShell and Python. Visual Studio is needed for some native dependencies.
 
-1. Install dependencies
+1. If Python is not already installed:
+
+Open PowerShell
+
+Run the following command to launch the Microsoft Store:
+
+```powershell
+python3.exe
+```
+
+Follow the instructions to install Python 3.x via the Microsoft Store.
+
+Make sure to allow the installer to add Python to your system PATH.
+
+2. Install Visual Studio (for native module compilation)
+
+Download and install Visual Studio Community Edition.
+
+Add the following components:
+
+- Developpement Python
+- Developpement Desktop C++
+
+These are required to build Python packages with native dependencies (like pycairo, pynfc, etc.).
+
+3. Install dependencies
 ```powershell
 .\setup.ps1
 ```
 
-2. Run the app (with system tray icon)
+4. Run the app (with system tray icon)
 ```powershell
 .\setup.ps1 run
 ```
 
-3. Generate a standalone .exe for deployment
+5. Generate a standalone .exe for deployment
 ```powershell
 .\setup.ps1 build
 ```
-The generated esup-nfc-agent.exe will be located in the dist/ folder.
+
+After completion, the .exe will be located in the dist/ folder and can be deployed directly to end-user machines.
+
+Make sure to configure config.ini before generating the .exe.
 
 ## Linux/macOS Usage (for development)
 Use bash and make sure python3, pip, and NFC libraries are installed.
