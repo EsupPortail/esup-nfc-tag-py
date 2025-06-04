@@ -18,7 +18,7 @@ source "$VENV_DIR/bin/activate"
 # 3. Install dependencies
 echo "📦 Install dependencies..."
 pip install --upgrade pip
-pip install -r requirements.txt
+pip install -r requirements-linux.txt
 pip install pyinstaller
 
 # 4. Run the application if no arguments are provided

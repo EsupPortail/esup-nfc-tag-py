@@ -6,6 +6,7 @@ import tempfile
 import threading
 import time
 
+import pystray
 import requests
 from PIL import Image
 from filelock import Timeout, FileLock
@@ -17,6 +18,10 @@ from smartcard.util import toBytes
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger("NFC-Agent")
+
+# Force GTK backend for pystray on Linux
+if sys.platform.startswith('linux'):
+    pystray._util._backend = 'gtk'
 
 class NfcAgent:
     def __init__(self, server_url, numero_id):

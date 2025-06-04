@@ -1,0 +1,6 @@
+pillow==11.2.1
+pystray==0.19.5
+requests==2.32.3
+pyscard==2.2.2
+filelock~=3.18.0
+PyGObject==3.52.3
