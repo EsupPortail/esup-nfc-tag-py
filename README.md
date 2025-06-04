@@ -14,6 +14,17 @@ enabling Multi-Factor Authentication (MFA) via NFC card badge.
 When integrated with esup-otp-api and CAS, it allows the user to seamlessly complete MFA by simply presenting 
 their DESFire NFC card to their reader-equipped workstation.
 
+In addition to the MFA use case, this application can also be configured to operate with other 
+esup-nfc-tag-server rooms, such as those used for card lookups in esup-sgc 
+or for attendance tracking via esup-emargement.
+Running silently in the background on user workstations, 
+it offers the advantage of being non-intrusive and lightweight from the end-user's perspective.
+
+However, unlike more interactive tools such as esup-nfc-tag-desktop or esup-nfc-tag-droid, 
+this agent requires pre-configuration by an administrator, 
+and is intended for a specific, predefined use case.
+It is not designed for multi-purpose usage or for letting the user choose the target room dynamically.
+
 The key benefit of esup-nfc-tag-py lies in its ability to:
 
 - run silently in the background ;
