@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -x
 
 APP_NAME="esup-nfc-agent"
 MAIN_SCRIPT="esup-nfc-agent.py"
@@ -35,15 +35,17 @@ if [ "$1" == "build" ]; then
     # Nettoyage précédent
     rm -rf build dist "${APP_NAME}.spec"
 
+    echo $MAIN_SCRIPT
+
     # Construction
     pyinstaller --onefile --noconsole \
         --icon="$ICON_FILE" \
         --add-data "$ICON_FILE:." \
-        --add-data "$CONFIG_FILE:." \        
+        --add-data "$CONFIG_FILE:." \
         --name "$APP_NAME" \
         "$MAIN_SCRIPT"
 
-    echo "✅ Fichier généré dans dist/${APP_NAME}.exe"
+    echo "✅ Fichier exécutable généré dans dist"
     exit 0
 fi
 

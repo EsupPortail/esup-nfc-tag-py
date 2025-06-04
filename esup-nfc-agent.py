@@ -1,21 +1,16 @@
-import threading
-import pystray
-from pystray import Icon, Menu, MenuItem
-from PIL import Image, ImageDraw
-import sys
 import configparser
 import logging
 import os
+import threading
 import time
-import requests
-import json
-from smartcard.CardType import AnyCardType
-from smartcard.CardType import ATRCardType
-from smartcard.CardConnection import CardConnection
-from smartcard.CardRequest import CardRequest
-from smartcard.System import readers
-from smartcard.util import toHexString, toBytes
 
+import requests
+from PIL import Image
+from pystray import Icon, Menu, MenuItem
+from smartcard.CardRequest import CardRequest
+from smartcard.CardType import AnyCardType
+from smartcard.System import readers
+from smartcard.util import toBytes
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger("NFC-Agent")
@@ -24,40 +19,35 @@ class NfcAgent:
     def __init__(self, server_url, numero_id):
         self.server_url = server_url
         self.numero_id = numero_id
-        self.reader = None
         self.connection = None
         self.running = False        
         self.thread = threading.Thread(target=self.main_loop, daemon=True)
 
-
     def start(self):
         logger.info("Démarrage de l'agent NFC")
-        self.running = True        
+        self.running = True
         self.thread.start()
 
-    def stop(self, icon=None, item=None):
+    def stop(self):
         logger.info("Arrêt de l'agent NFC")
         self.running = False
-        if icon:
-            icon.stop()
         
     def connect_reader(self):
         logger.info("[INFO] Surveillance des lecteurs NFC démarrée...")
-        cardtype = ATRCardType(toBytes("3B 81 80 01 80 80"))
-        cardrequest = CardRequest(timeout=600, cardType=cardtype)
+        card_type = AnyCardType
+        card_request = CardRequest(timeout=600, cardType=card_type)
         if self.connection:
             logger.info("Please remove the card")
-            cardrequest.waitforcardevent()
+            card_request.waitforcardevent()
             self.disconnect_reader()            
-        cardservice = cardrequest.waitforcard()
+        card_request.waitforcard()
         logger.info(f"[INFO] Carte détectée.")
         all_readers = readers()
         for reader in all_readers:
             try:
-                self.reader = reader
-                self.connection = self.reader.createConnection()
+                self.connection = reader.createConnection()
                 self.connection.connect()
-                logger.info(f"[INFO] Carte détectée sur {self.reader}.")
+                logger.info(f"[INFO] Carte détectée sur {reader}.")
                 return
             except:
                 logger.info(f"[INFO] Carte retirée de {reader}.")
@@ -65,7 +55,6 @@ class NfcAgent:
     def disconnect_reader(self):
         if self.connection:
             self.connection.disconnect()
-            self.reader = None
             self.connection = None
             logger.info("Déconnecté du lecteur.")
 
@@ -122,7 +111,7 @@ def run_systray(agent: NfcAgent):
     icon_path = os.path.join(os.path.dirname(__file__), 'icon.ico')
     icon_image = Image.open(icon_path)
 
-    def on_quit(icon, item):
+    def on_quit(icon):
         agent.stop()
         icon.stop()
 
@@ -130,8 +119,7 @@ def run_systray(agent: NfcAgent):
     icon = Icon("NFC Agent", icon_image, "Agent NFC", menu)
     icon.run()
 
-    
-# Exemple d'utilisation
+
 if __name__ == "__main__":
 
     config = configparser.ConfigParser()

@@ -1,24 +1,42 @@
-# esup-nfc-tag-py : a python agent for esup-nfc-tag project
+# esup-nfc-tag-py 
+*A python agent for esup-nfc-tag project*
 
-**esup-nfc-tag-py** is a lightweight Python-based background application with a system tray icon that listens for NFC card events and triggers an authentication request (APDU exchange) to a remote server (such as [esup-otp-api](https://github.com/EsupPortail/esup-otp-api)), typically used in conjunction with a CAS-based MFA system.
+esup-nfc-tag-py is a lightweight Python-based background agent with a system tray icon, 
+designed to listen for NFC card events and relay them to a remote esup-nfc-tag-server instance.
 
-**esup-nfc-tag-py** acts as a client to [esup-nfc-tag-server](https://github.com/EsupPortail/esup-nfc-tag-server), which serves as a relay to both construct the required DESFire APDUs and communicate with esup-otp-api in order to complete CAS authentication once the DESFire authentication has been successfully validated.
+Unlike esup-nfc-tag-desktop or esup-nfc-tag-droid, this agent does not allow users to manually authenticate 
+and select a "badge room". 
+Instead, it acts as a passive client, configured in advance to target a specific room —
+defined within esup-nfc-tag-server under the "devices" section — and associated with a predefined room.
 
-This project is designed to be deployed on user workstations (especially Windows) to support secure contactless authentication via DESFire NFC cards.
+This application was initially developed to support a specific use case: 
+enabling Multi-Factor Authentication (MFA) via NFC card badge.
+When integrated with esup-otp-api and CAS, it allows the user to seamlessly complete MFA by simply presenting 
+their DESFire NFC card to their reader-equipped workstation.
+
+The key benefit of esup-nfc-tag-py lies in its ability to:
+
+- run silently in the background ;
+
+- consume minimal resources ;
+
+- provide a frictionless user experience, requiring no interaction other than tapping the card.
+
+It is ideally suited for deployment on Windows user machines (via .exe packaging), but is cross-platform and works under Linux as well.
 
 ## Features
 
 - NFC reader detection (supports multiple readers)
 - Background agent with system tray icon
-- Event-driven card detection loop
+- Event-driven card detection
 - HTTP session with cookie persistence
 - Easily deployable on Windows (via `.exe` generation)
 - Lightweight footprint (much smaller than a Java-based equivalent)
 
 ## Requirements
 
-- Python 3.8+
-- Compatible USB NFC reader (e.g., ACR122U)
+- esup-nfc-tag-server (running on a remote server)
+- compatible USB NFC reader
 - DESFire-compatible cards
 
 ## Project Structure
@@ -39,7 +57,7 @@ Before packaging or running the application, make sure to edit the `config.ini` 
 ```ini
 [general]
 server_url = https://esup-nfc-tag.example.org
-numero_id = numero-hexa-de-esup-nfc-tag-pour-esup-otp
+numero_id = numero-hexa-peripherique-esup-nfc-tag-pour-esup-otp
 ```
 
 ## Windows Usage

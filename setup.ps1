@@ -39,7 +39,7 @@ if ($action -eq "build") {
     pyinstaller --onefile --noconsole `
         --icon "$IconFile" `
         --add-data "$IconFile;." `
-        --add-data "$ConfigFile;." `        
+        --add-data "$ConfigFile;." `
         --name "$AppName" `
         "$MainScript"
 
