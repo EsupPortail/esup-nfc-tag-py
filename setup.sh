@@ -43,6 +43,10 @@ if [ "$1" == "build" ]; then
         --add-data "$ICON_FILE:." \
         --add-data "$CONFIG_FILE:." \
         --name "$APP_NAME" \
+        --hidden-import=gi.repository.GObject \
+        --hidden-import=gi.repository.GLib \
+        --hidden-import=gi.repository.Gtk \
+        --collect-submodules=gi \
         "$MAIN_SCRIPT"
 
     echo "✅ Executable created in the 'dist' directory."
