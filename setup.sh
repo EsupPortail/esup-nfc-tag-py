@@ -6,38 +6,38 @@ ICON_FILE="icon.ico"
 CONFIG_FILE="config.ini"
 VENV_DIR="venv"
 
-# 1. Créer l'environnement virtuel s'il n'existe pas
+# 1. Create the virtual environment if it doesn't exist
 if [ ! -d "$VENV_DIR" ]; then
-    echo "🔧 Création de l'environnement virtuel..."
+    echo "🔧 Create virtual environment..."
     python3 -m venv "$VENV_DIR"
 fi
 
-# 2. Activer l'environnement virtuel
+# 2. Activate the virtual environment
 source "$VENV_DIR/bin/activate"
 
-# 3. Mise à jour de pip + installation des dépendances
-echo "📦 Installation des dépendances..."
+# 3. Install dependencies
+echo "📦 Install dependencies..."
 pip install --upgrade pip
 pip install -r requirements.txt
 pip install pyinstaller
 
-# 4. Lancer l'application si demandé
+# 4. Run the application if no arguments are provided
 if [ "$1" == "run" ]; then
-    echo "🚀 Lancement de l'application..."
+    echo "🚀 Run the application..."
     python "$MAIN_SCRIPT"
     exit 0
 fi
 
-# 5. Génération de l'exécutable avec PyInstaller
+# 5. Generate the executable with PyInstaller if the first argument is "build"
 if [ "$1" == "build" ]; then
-    echo "🏗️ Construction de l'exécutable..."
+    echo "🏗️ Build the executable..."
 
-    # Nettoyage précédent
+    # Clean previous builds
     rm -rf build dist "${APP_NAME}.spec"
 
     echo $MAIN_SCRIPT
 
-    # Construction
+    # Build the executable with PyInstaller
     pyinstaller --onefile --noconsole \
         --icon="$ICON_FILE" \
         --add-data "$ICON_FILE:." \
@@ -45,12 +45,12 @@ if [ "$1" == "build" ]; then
         --name "$APP_NAME" \
         "$MAIN_SCRIPT"
 
-    echo "✅ Fichier exécutable généré dans dist"
+    echo "✅ Executable created in the 'dist' directory."
     exit 0
 fi
 
 # 6. Affichage de l'aide
-echo "🛠️  Utilisation :"
-echo "  ./setup.sh             → crée l'env et installe les dépendances"
-echo "  ./setup.sh run         → lance l'application"
-echo "  ./setup.sh build       → génère un exécutable autonome"
+echo "🛠️  Usage:"
+echo "  ./setup.sh             → install dependencies and prepare the environment"
+echo "  ./setup.sh run         → run the application"
+echo "  ./setup.sh build       → build the executable"

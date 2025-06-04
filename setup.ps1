@@ -8,31 +8,31 @@ $IconFile = "icon.ico"
 $ConfigFile = "config.ini"
 $VenvDir = ".\venv"
 
-# 1. Créer le venv s'il n'existe pas
+# 1. Create the virtual environment if it doesn't exist
 if (-not (Test-Path "$VenvDir")) {
-    Write-Host "Création de l'environnement virtuel..."
+    Write-Host "Create virtual environment..."
     python3.exe -m venv $VenvDir
 }
 
-# 2. Activer le venv
+# 2. Activate the virtual environment
 & "$VenvDir\Scripts\Activate.ps1"
 
-# 3. Installer les dépendances
-Write-Host "Installation des dépendances..."
+# 3. Install dependencies
+Write-Host "Install dependencies..."
 pip install --upgrade pip
 pip install -r requirements.txt
 pip install pyinstaller
 
-# 4. Exécution
+# 4. Execute the requested action
 
 if ($action -eq "run") {
-    Write-Host "Lancement de l'application..."
+    Write-Host "Run the application..."
     python $MainScript
     exit
 }
 
 if ($action -eq "build") {
-    Write-Host "Construction de l'exécutable Windows..."
+    Write-Host "Build the application executable..."
 
     Remove-Item -Recurse -Force build, dist, "$AppName.spec" -ErrorAction SilentlyContinue
 
@@ -43,11 +43,11 @@ if ($action -eq "build") {
         --name "$AppName" `
         "$MainScript"
 
-    Write-Host "Fichier exe généré dans le repertoire dist"
+    Write-Host "File created in dist/$AppName.exe"
     exit
 }
 
-Write-Host "Utilisation :"
-Write-Host "  ./setup.ps1            installe les dependances"
-Write-Host "  ./setup.ps1 run        lance l'app"
-Write-Host "  ./setup.ps1 build      exe Windows"
+Write-Host "Usage:"
+Write-Host "  ./setup.ps1            install dependencies"
+Write-Host "  ./setup.ps1 run        run the application"
+Write-Host "  ./setup.ps1 build      build the application executable"
